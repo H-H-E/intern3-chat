@@ -25,7 +25,7 @@ const safeRemoveItem = (key: string): void => {
 export const loadAIConfig = (): AIConfig => {
     if (typeof window === "undefined")
         return {
-            selectedModel: null,
+            selectedModel: "gpt-oss-120b",
             enabledTools: ["web_search"],
             selectedImageSize: "1:1",
             reasoningEffort: "medium"
@@ -33,7 +33,7 @@ export const loadAIConfig = (): AIConfig => {
     const stored = localStorage.getItem(AI_CONFIG_KEY)
     if (!stored) {
         return {
-            selectedModel: null,
+            selectedModel: "gpt-oss-120b",
             enabledTools: ["web_search"],
             selectedImageSize: "1:1",
             reasoningEffort: "medium"
@@ -56,7 +56,7 @@ export const loadAIConfig = (): AIConfig => {
     } catch {
         safeRemoveItem(AI_CONFIG_KEY)
         return {
-            selectedModel: null,
+            selectedModel: "gpt-oss-120b",
             enabledTools: ["web_search"],
             selectedImageSize: "1:1",
             reasoningEffort: "medium"

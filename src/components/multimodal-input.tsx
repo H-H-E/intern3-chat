@@ -1,4 +1,3 @@
-import { ModelSelector } from "@/components/model-selector"
 import {
     PromptInput,
     PromptInputAction,
@@ -713,12 +712,13 @@ export function MultimodalInput({
                                     </div>
                                 </div>
                             )}
-                            {selectedModel && (
+                            {/* ModelSelector disabled - using fixed gpt-oss-120b model */}
+                            {/* {selectedModel && (
                                 <ModelSelector
                                     selectedModel={selectedModel}
                                     onModelChange={setSelectedModel}
                                 />
-                            )}
+                            )} */}
 
                             {isImageModel ? (
                                 <AspectRatioSelector selectedModel={selectedModel} />

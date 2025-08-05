@@ -39,6 +39,13 @@ export type SharedModel<Abilities extends ModelAbility[] = ModelAbility[]> = {
 
 export const MODELS_SHARED: SharedModel[] = [
     {
+        id: "gpt-oss-120b",
+        name: "GPT OSS 120B",
+        shortName: "OSS 120B",
+        adapters: ["openrouter:openai/gpt-oss-120b"],
+        abilities: ["function_calling", "pdf"]
+    },
+    {
         id: "gpt-4o",
         name: "GPT 4o",
         shortName: "4o",
