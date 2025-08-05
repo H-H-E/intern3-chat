@@ -12,19 +12,17 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp"
-import { Separator } from "@/components/ui/separator"
+
 import { useSession } from "@/hooks/auth-hooks"
 import { authClient } from "@/lib/auth-client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "@tanstack/react-router"
-import { Loader2 } from "lucide-react"
 import { AnimatePresence, MotionConfig, motion } from "motion/react"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { GithubIcon, GoogleIcon, TwitchIcon } from "../brand-icons"
 
 const emailSchema = z.object({
     email: z.string().email({
@@ -150,17 +148,6 @@ export function AuthCard() {
         }
     })
 
-    const socialSignInMutation = useMutation({
-        mutationFn: async (provider: "google" | "github" | "twitch") => {
-            return await authClient.signIn.social({
-                provider
-            })
-        },
-        onError: (error) => {
-            toast.error(error.message ?? `Failed to sign in with ${error}`)
-        }
-    })
-
     const onEmailSubmit = useCallback(
         (values: EmailFormValues) => {
             sendOTPMutation.mutate(values)
@@ -230,73 +217,6 @@ export function AuthCard() {
                                     exit={{ x: -20, opacity: 0 }}
                                 >
                                     <CardContent className="grid gap-6">
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            className="flex flex-col gap-2"
-                                        >
-                                            <Button
-                                                variant="outline"
-                                                className="h-10 w-full gap-2"
-                                                onClick={() =>
-                                                    socialSignInMutation.mutate("google")
-                                                }
-                                                disabled={socialSignInMutation.isPending}
-                                            >
-                                                {socialSignInMutation.isPending ? (
-                                                    <Loader2 className="size-4 shrink-0 animate-spin" />
-                                                ) : (
-                                                    <GoogleIcon className="size-4 shrink-0" />
-                                                )}
-                                                Continue with Google
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                className="h-10 w-full gap-2"
-                                                onClick={() =>
-                                                    socialSignInMutation.mutate("github")
-                                                }
-                                                disabled={socialSignInMutation.isPending}
-                                            >
-                                                {socialSignInMutation.isPending ? (
-                                                    <Loader2 className="size-4 shrink-0 animate-spin" />
-                                                ) : (
-                                                    <GithubIcon className="size-5 shrink-0" />
-                                                )}
-                                                Continue with GitHub
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                className="h-10 w-full gap-2"
-                                                onClick={() =>
-                                                    socialSignInMutation.mutate("twitch")
-                                                }
-                                                disabled={socialSignInMutation.isPending}
-                                            >
-                                                {socialSignInMutation.isPending ? (
-                                                    <Loader2 className="size-4 shrink-0 animate-spin" />
-                                                ) : (
-                                                    <TwitchIcon className="size-5 shrink-0" />
-                                                )}
-                                                Continue with Twitch
-                                            </Button>
-                                        </motion.div>
-
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            className="relative"
-                                        >
-                                            <div className="absolute inset-0 flex items-center">
-                                                <Separator />
-                                            </div>
-                                            <div className="relative flex justify-center text-xs uppercase">
-                                                <span className="bg-background px-2 text-muted-foreground">
-                                                    Or continue with email
-                                                </span>
-                                            </div>
-                                        </motion.div>
-
                                         <Form {...emailForm}>
                                             <form onSubmit={emailForm.handleSubmit(onEmailSubmit)}>
                                                 <motion.div
