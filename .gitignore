@@ -36,3 +36,4 @@ yarn.lock
 .env.local
 
 .nitro
+.env*.local

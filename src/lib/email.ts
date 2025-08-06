@@ -53,7 +53,7 @@ class EmailService {
 
         return {
             provider,
-            from: process.env.EMAIL_FROM || "noreply@intern3.chat",
+            from: process.env.EMAIL_FROM || "noreply@pete.poiesis.education",
             resend:
                 provider === "resend"
                     ? {

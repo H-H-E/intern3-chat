@@ -28,18 +28,46 @@ convexQueryClient.connect(queryClient)
 export function Providers({ children }: { children: ReactNode }) {
     const router = useRouter()
 
+    // Check if PostHog is properly configured
+    const isPostHogConfigured = () => {
+        try {
+            const key = browserEnv("VITE_POSTHOG_KEY")
+            return key && key !== "ph-dev-placeholder" && !key.includes("placeholder")
+        } catch (error) {
+            console.warn("PostHog not configured:", error)
+            return false
+        }
+    }
+
     return (
         <ClientOnly>
             <ConvexQueryCacheProvider>
                 <QueryClientProvider client={queryClient}>
-                    <PostHogProvider
-                        apiKey={browserEnv("VITE_POSTHOG_KEY")}
-                        options={{
-                            api_host: "/api/phr",
-                            capture_exceptions: true
-                            // debug: import.meta.env.MODE === "development"
-                        }}
-                    >
+                    {isPostHogConfigured() ? (
+                        <PostHogProvider
+                            apiKey={browserEnv("VITE_POSTHOG_KEY")}
+                            options={{
+                                api_host: "/api/phr",
+                                capture_exceptions: true
+                                // debug: import.meta.env.MODE === "development"
+                            }}
+                        >
+                            <AuthQueryProvider>
+                                <ThemeProvider>
+                                    <AuthUIProviderTanstack
+                                        authClient={authClient}
+                                        navigate={(href) => router.navigate({ href })}
+                                        replace={(href) => router.navigate({ href, replace: true })}
+                                        Link={({ href, ...props }) => <Link to={href} {...props} />}
+                                    >
+                                        {children}
+
+                                        <Toaster />
+                                    </AuthUIProviderTanstack>
+                                </ThemeProvider>
+                            </AuthQueryProvider>
+                        </PostHogProvider>
+                    ) : (
                         <AuthQueryProvider>
                             <ThemeProvider>
                                 <AuthUIProviderTanstack
@@ -54,7 +82,7 @@ export function Providers({ children }: { children: ReactNode }) {
                                 </AuthUIProviderTanstack>
                             </ThemeProvider>
                         </AuthQueryProvider>
-                    </PostHogProvider>
+                    )}
                 </QueryClientProvider>
             </ConvexQueryCacheProvider>
         </ClientOnly>

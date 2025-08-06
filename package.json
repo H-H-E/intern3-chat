@@ -1,5 +1,5 @@
 {
-    "name": "intern3-chat",
+    "name": "poiesis-pete",
     "version": "1.0.0",
     "type": "module",
     "scripts": {
@@ -15,7 +15,7 @@
         "prepare": "husky"
     },
     "keywords": ["better-auth", "tanstack", "vite", "react"],
-    "author": "intern3chat",
+    "author": "Poiesis Pete",
     "license": "MIT",
     "dependencies": {
         "@ai-sdk/anthropic": "^1.2.12",
@@ -129,6 +129,7 @@
         "unpdf": "^1.0.6",
         "use-stick-to-bottom": "^1.1.1",
         "vaul": "^1.1.2",
+        "vercel": "^44.7.3",
         "vite": "^6.3.5",
         "zod": "^3.25.63",
         "zustand": "^5.0.5"

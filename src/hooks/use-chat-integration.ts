@@ -2,7 +2,7 @@ import { api } from "@/convex/_generated/api"
 import type { Id } from "@/convex/_generated/dataModel"
 import { backendToUiMessages } from "@/convex/lib/backend_to_ui_messages"
 import type { SharedThread, Thread } from "@/convex/schema"
-import { useToken } from "@/hooks/auth-hooks"
+import { useSession, useToken } from "@/hooks/auth-hooks"
 import { useAutoResume } from "@/hooks/use-auto-resume"
 import { browserEnv } from "@/lib/browser-env"
 import { useChatStore } from "@/lib/chat-store"
@@ -25,6 +25,18 @@ export function useChatIntegration<IsShared extends boolean>({
     folderId?: Id<"projects">
 }) {
     const tokenData = useToken()
+    const { data: session } = useSession()
+
+    // Debug auth data
+    console.log("[UCI:auth_debug]", {
+        hasSession: !!session,
+        hasUser: !!session?.user,
+        userId: session?.user?.id,
+        hasTokenData: !!tokenData,
+        hasToken: !!tokenData?.token,
+        tokenLength: tokenData?.token?.length,
+        tokenData: tokenData ? Object.keys(tokenData) : "no tokenData"
+    })
     const {
         selectedModel,
         enabledTools,
@@ -82,6 +94,16 @@ export function useChatIntegration<IsShared extends boolean>({
             : {
                   authorization: `Bearer ${tokenData.token}`
               },
+        onError: (error) => {
+            console.error("[Chat Error]", error)
+            console.log("[Chat Debug]", {
+                hasToken: !!tokenData.token,
+                tokenLength: tokenData.token?.length,
+                apiUrl: `${browserEnv("VITE_CONVEX_API_URL")}/chat`,
+                isShared,
+                threadId
+            })
+        },
         experimental_throttle: 50,
         experimental_prepareRequestBody(body) {
             // Skip request preparation for shared threads since they're read-only

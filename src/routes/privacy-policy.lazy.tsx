@@ -24,7 +24,7 @@ function PrivacyPolicyPage() {
                     </Link>
                 </div>
 
-                <h1 className="mb-6 font-bold text-3xl">intern3.chat Privacy Policy</h1>
+                <h1 className="mb-6 font-bold text-3xl">Poiesis Pete Privacy Policy</h1>
                 <p className="mb-8 text-muted-foreground text-sm">Last Updated: 18 Jun 2025</p>
 
                 <section className="mb-8 space-y-4">
@@ -140,8 +140,11 @@ function PrivacyPolicyPage() {
                     <p className="text-muted-foreground">
                         If you have any questions or concerns about this privacy policy, please
                         reach out at{" "}
-                        <a href="mailto:hi@intern3.chat" className="text-primary hover:underline">
-                            hi@intern3.chat
+                        <a
+                            href="mailto:hi@pete.poiesis.education"
+                            className="text-primary hover:underline"
+                        >
+                            hi@pete.poiesis.education
                         </a>
                     </p>
                 </section>

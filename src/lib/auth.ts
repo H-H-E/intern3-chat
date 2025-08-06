@@ -9,9 +9,10 @@ import { sendOTPEmail } from "./email"
 
 export const auth = betterAuth({
     trustedOrigins: [
-        "*.intern3.chat",
+        "*.poiesis.education",
+        "pete.poiesis.education",
+        "https://pete.poiesis.education",
         process.env.VERCEL_URL!,
-        "https://intern3.chat",
         "http://localhost:3000",
         "https://localhost:3000"
     ].filter(Boolean),
@@ -43,7 +44,9 @@ export const auth = betterAuth({
                     modulusLength: 2048,
                     // @ts-expect-error required for convex
                     extractable: true
-                }
+                },
+                // Temporarily disable private key encryption to fix decryption issues
+                encryptPrivateKey: false
             }
         })
     ]

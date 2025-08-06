@@ -107,7 +107,11 @@ export function UserButton() {
                     <span>Settings</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                    <a href="https://docs.intern3.chat" target="_blank" rel="noopener noreferrer">
+                    <a
+                        href="https://docs.pete.poiesis.education"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         <BookText className="h-4 w-4" />
                         <span>Docs</span>
                     </a>

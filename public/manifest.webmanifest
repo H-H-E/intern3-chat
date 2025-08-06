@@ -1,7 +1,7 @@
 {
-    "name": "intern3.chat",
-    "short_name": "intern3.chat",
-    "description": "intern3.chat",
+    "name": "Poiesis Pete",
+    "short_name": "Poiesis Pete",
+    "description": "AI-powered creative assistant for thoughtful conversations and content creation.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

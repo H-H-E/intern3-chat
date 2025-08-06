@@ -1,6 +1,6 @@
 import type { ImageSize } from "@/convex/lib/models"
-import type { AbilityId } from "@/convex/lib/toolkit"
 import { type AIConfig, loadAIConfig, saveAIConfig } from "@/lib/persistence"
+import type { AbilityId } from "@/lib/toolkit-constants"
 import { create } from "zustand"
 import { persist } from "zustand/middleware"
 

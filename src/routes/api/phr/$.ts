@@ -1,6 +1,7 @@
 import { createServerFileRoute } from "@tanstack/react-start/server"
 
-const POSTHOG_HOST = process.env.VITE_POSTHOG_HOST
+// Use https://app.posthog.com as default if environment variable is not set
+const POSTHOG_HOST = process.env.VITE_POSTHOG_HOST || "https://app.posthog.com"
 
 function filterHeaders(headers: Headers): Record<string, string> {
     const filtered: Record<string, string> = {}
